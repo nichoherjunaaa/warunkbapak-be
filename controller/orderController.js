@@ -115,13 +115,14 @@ export const callbackPayment = asyncHandler(async (req, res) => {
     if (transactionStatus == 'capture' || transactionStatus == 'settlement') {
         if (fraudStatus == 'accept') {
             const orderProduct = orderData.itemsDetail
+
             for(const itemProduct of orderProduct) {
                 const productData = await Product.findById(itemProduct.product)
                 if(!productData){
                     res.status(404)
                     throw new Error('Product not found')
                 }
-                productData.stock -= itemProduct.quantity
+                productData.stock = productData.stock - itemProduct.quantity
                 await productData.save()
             }
             orderData.status = 'success'
@@ -134,10 +135,7 @@ export const callbackPayment = asyncHandler(async (req, res) => {
         orderData.status = 'pending'
     }
     await orderData.save()
-
-    res.status(200).json({
-        message: 'Payment status updated'
-    })
+    return res.status(200).send('Payment Notif Berhasil')
 })
 
 
