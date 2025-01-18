@@ -7,6 +7,6 @@ router.post('/', protectedMiddleware, createOrder)
 router.get('/', protectedMiddleware, adminMiddleware,allOrder)
 router.get('/:id', protectedMiddleware, adminMiddleware, detailOrder)
 router.get('/current/user', protectedMiddleware, currentAuthOrder)
-router.get('/callback/midtrans', callbackPayment)
+router.post('/midtrans', callbackPayment)
 
 export default router

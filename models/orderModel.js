@@ -21,7 +21,6 @@ const singleProduct = Schema({
     }
 })
 
-
 const orderSchema = new Schema({
     total : {
         type : Number,
