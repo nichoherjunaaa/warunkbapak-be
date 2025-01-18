@@ -19,7 +19,6 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
-// middleware
 app.use(helmet())
 app.use(mongoExpressSanitize())
 app.use(express.json())
@@ -30,7 +29,7 @@ app.use(express.static('./public'))
 dbConnection()
 
 app.get('/', (req, res) => {
-    res.send('Server Ready !')
+    res.send('API Ready !')
 })
 
 

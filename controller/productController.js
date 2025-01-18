@@ -30,11 +30,11 @@ export const allProducts = asyncHandler(async (req, res) => {
     // console.log(queryObj);
 
     const page = req.query.page * 1 || 1
-    const limitData = req.query.limit * 1 || 30
+    const limitData = req.query.limit * 1 || 3
     const skipData = (page - 1) * limitData
     query = query.skip(skipData).limit(limitData)
 
-    let countProducts = await Product.countDocuments()
+    let countProducts = await Product.countDocuments(queryObj)
 
     if (req.query.page) {
         if (skipData >= countProducts) {
@@ -44,11 +44,16 @@ export const allProducts = asyncHandler(async (req, res) => {
     }
 
     const data = await query
+    const totalPage = Math.ceil(countProducts / limitData)
 
     res.status(200).json({
         message: 'Success get all products',
         data,
-        count: countProducts
+        pagination : {
+            totalPage,
+            page,
+            totalProduct : countProducts
+        }
     })
 })
 
@@ -112,5 +117,5 @@ export const uploadDataProduct = asyncHandler(async (req, res) => {
                 url: result.secure_url,
             })
         })
-        stremifier.createReadStream(req.file.buffer).pipe(stream);
+    stremifier.createReadStream(req.file.buffer).pipe(stream);
 })
