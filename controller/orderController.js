@@ -115,7 +115,7 @@ export const callbackPayment = asyncHandler(async (req, res) => {
     if (transactionStatus == 'capture' || transactionStatus == 'settlement') {
         if (fraudStatus == 'accept') {
             const orderProduct = orderData.itemsDetail
-
+            console.log(orderProduct);
             for(const itemProduct of orderProduct) {
                 const productData = await Product.findById(itemProduct.product)
                 if(!productData){
@@ -135,6 +135,8 @@ export const callbackPayment = asyncHandler(async (req, res) => {
         orderData.status = 'pending'
     }
     await orderData.save()
+    console.log(orderData.status);
+    
     return res.status(200).send('Payment Notif Berhasil')
 })
 
