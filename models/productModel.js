@@ -23,7 +23,7 @@ const productSchema = new Schema({
     category : {
         type : String,
         required : [true, "Kategori harus dipilih"],
-        enum : ["Sepatu", "Kemeja", "Baju", "Celana"],
+        enum : ["Makanan", "Minuman", "Pakaian", "Aksesoris"],
     },
     stock : {
         type : Number,
